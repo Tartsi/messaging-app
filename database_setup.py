@@ -6,6 +6,8 @@ DATABASE_NAME = 'database.db'
 
 # Placeholder
 
+# TODO: Advance the actual project and think of the potential dependencies it might have!
+
 
 def create_database():
 
