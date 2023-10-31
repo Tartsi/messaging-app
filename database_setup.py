@@ -6,8 +6,6 @@ DATABASE_NAME = 'database.db'
 
 # Placeholder
 
-# TODO: Advance the actual project and think of the potential dependencies it might have!
-
 
 def create_database():
 
@@ -16,10 +14,10 @@ def create_database():
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
 
-        cursor.execute('''CREATE TABLE IF NOT EXISTS users (
-                          id INTEGER PRIMARY KEY,
-                          username TEXT,
-                          password TEXT)''')
+        with open('tables.sql', 'r') as sql_file:
+            sql_script = sql_file.read()
+
+        cursor.executescript(sql_script)
 
         conn.commit()
         conn.close()
@@ -28,6 +26,36 @@ def create_database():
     except Exception as e:
         print(f"Error: {e}")
 
+# Primarily for testing purposes only during development!
+# If used in production make sure you have a backup database!
+
+
+def reset_database():
+    try:
+
+        conn = sqlite3.connect(DATABASE_NAME)
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
+        tables = cursor.fetchall()
+
+        if len(tables) != 0:
+            for table in tables:
+                table_name = table[0]
+                cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
+                print("Dropped table", table_name)
+        else:
+            print("No tables to drop!")
+
+        conn.commit()
+        conn.close()
+        print(f"Database '{DATABASE_NAME}' has been reset.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 if __name__ == "__main__":
+    # reset_database()
     create_database()
