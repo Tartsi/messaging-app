@@ -2,8 +2,32 @@
 
 ### Messaging Application
 
-- Simple messaging application, intended to include security flaws.
-- README.md will be updated along with the projects creation, to include project setup and information about the flaws of the application.
+- Simple minimalistic-scale messaging application, INTENTED to include security flaws, using Flask, Python and SQLite3.
+- README.md will be updated along with the projects creation.
+
+### Requirements Specification:
+
+- Intented functionality:
+
+1. User Registration and Login:
+
+- Users are able to register and login/logout with their account.
+
+2. Send Messages:
+
+- Users are able to send messages to other registered users.
+
+3. View Inbox:
+
+- Users can view messages sent to them.
+
+4. View Sent Messages:
+
+- Users can view messages they have sent.
+
+5. Delete Messages:
+
+- Users can delete messages from their inbox/sent messages list.
 
 ### Security Notifications:
 
