@@ -1,10 +1,12 @@
 import sqlite3
 
+"""
+This module sets up the database used in the application
+"""
+
 # Define the database file name here
 # The database file will be created upon execution of this setup file
 DATABASE_NAME = 'database.db'
-
-# Placeholder
 
 
 def create_database():
@@ -36,6 +38,7 @@ def reset_database():
         conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
 
+        # Drops all tables from the database
         cursor.execute(
             "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
         tables = cursor.fetchall()
