@@ -32,3 +32,4 @@
 ### Security Notifications:
 
 - Notification in the database table setup file. The password field of users should use proper password hashing, instead of plaintext passwords for storing passwords. This practice protects users passwords incase the database is compromised.
+- App secret key is way too short, common and generally insecure.
