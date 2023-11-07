@@ -28,9 +28,6 @@ def create_database():
     except Exception as e:
         print(f"Error: {e}")
 
-# Primarily for testing purposes only during development!
-# If used in production make sure you have a backup database!
-
 
 def reset_database():
     try:
