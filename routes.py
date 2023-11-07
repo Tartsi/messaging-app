@@ -22,5 +22,10 @@ def test_database():
         return "Error, no tables found!"
 
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
