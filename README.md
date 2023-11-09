@@ -34,3 +34,4 @@
 - Notification in the database table setup file. The password field of users should use proper password hashing, instead of plaintext passwords for storing passwords. This practice protects users passwords incase the database is compromised.
 - App secret key is way too short, common and generally insecure.
 - No CSRF protection used in index.html login-form.
+- Input checks for registration form are not secure enough.
