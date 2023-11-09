@@ -1,4 +1,5 @@
 from flask import render_template, request
+from models import user
 import sqlite3
 from app import app
 
@@ -25,6 +26,34 @@ def test_database():
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "GET":
+        return render_template("register.html")
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        # Check if admin checkbox
+        admin = request.form.get["admin-checkbox"] == "on"
+
+        if admin:
+            # create an admin user
+            admin_status = 1
+            user = user.User(username, password, admin_status)
+            return render_template("index.html", admin_user=True)
+
+        # normal user
+        user = user.User(username, password)
+
+        # TODO: check if username already exists.
+
+    return render_template("index.html", normal_user=True)
 
 
 if __name__ == "__main__":
