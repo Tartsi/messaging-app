@@ -37,6 +37,11 @@ def register():
     if request.method == "POST":
 
         username = request.form["username"]
+
+        # if username already exists
+        # TODO: CHECK
+        # return render_template("register.html", username_already_exists=True)
+
         password = request.form["password"]
 
         # Check if admin checkbox
@@ -50,8 +55,6 @@ def register():
 
         # normal user
         user = user.User(username, password)
-
-        # TODO: check if username already exists.
 
     return render_template("index.html", normal_user=True)
 

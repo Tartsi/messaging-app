@@ -88,3 +88,7 @@ function adminPrompt() {
     }
 
 }
+
+function showErrorMessage() {
+    alert("Username already in use!");
+}

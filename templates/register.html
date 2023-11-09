@@ -43,6 +43,12 @@
 
     <script src="/static/register.js"></script>
 
+    {% if username_already_exists %}
+    <script>
+        showErrorMessage();
+    </script>
+    {% endif %}
+
 </body>
 
 </html>
