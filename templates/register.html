@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/register.css">
+    <script src="/static/register.js"></script>
+    <title>Registration</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Register for an account</h2>
+        <form id="registration-form" method="post" action="/register">
+
+            <!-- SECURITY NOTIFICATION: NO CSRF-TOKEN PRESENT! -->
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="conf-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+
+            <div>
+                <label for="admin-account">Admin Account:</label>
+                <input type="checkbox" id="admin-checkbox" name="admin-checkbox" onchange="adminPrompt()">
+            </div>
+            <br>
+            <div id="admin-pass-div" style="display:none;">
+                <label for="admin-password">Admin Password:</label>
+                <input type="password" id="admin-password" name="admin-password">
+            </div>
+
+            <button type="submit" , onclick="return inputCheck()">Register</button>
+        </form>
+    </div>
+
+    <script src="/static/register.js"></script>
+
+</body>
+
+</html>
