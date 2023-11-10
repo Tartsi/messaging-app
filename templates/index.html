@@ -30,6 +30,20 @@
         <p>Don't have an account? <a href="/register">Register here</a></p>
     </div>
 
+    <script src="/static/index.js"></script>
+
+    {% if normal_user %}
+    <script>
+        showSuccessNormal();
+    </script>
+    {% endif %}
+
+    {% if admin_user %}
+    <script>
+        showSuccessAdmin();
+    </script>
+    {% endif %}
+
 </body>
 
 </html>

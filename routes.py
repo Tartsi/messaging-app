@@ -1,7 +1,8 @@
 from flask import render_template, request
-from models import user
+from models.user import User
 import sqlite3
 from app import app
+import database_manager
 
 # Make sure you have setup the database beforehand!
 DATABASE_NAME = 'database.db'
@@ -38,25 +39,28 @@ def register():
 
         username = request.form["username"]
 
-        # if username already exists
-        # TODO: CHECK
-        # return render_template("register.html", username_already_exists=True)
+        # TODO: CHECK username availability
 
         password = request.form["password"]
 
         # Check if admin checkbox
-        admin = request.form.get["admin-checkbox"] == "on"
+        admin = request.form.get("admin-checkbox") == "on"
 
         if admin:
             # create an admin user
             admin_status = 1
-            user = user.User(username, password, admin_status)
+            user = User(username, password, admin_status)
+            database_manager.add_user(
+                user.username, user.password, user.admin_status)
             return render_template("index.html", admin_user=True)
 
         # normal user
-        user = user.User(username, password)
+        user = User(username, password)
+        database_manager.add_user(user.username, user.password)
 
-    return render_template("index.html", normal_user=True)
+        return render_template("index.html", normal_user=True)
+
+    return render_template("register.html")
 
 
 if __name__ == "__main__":
