@@ -6,7 +6,8 @@ const adminPassword = "adminpassword1234";
 
 // SECURITY NOTIFICATION: This input check method is insufficient and thus a security issue.
 // These password checks are simply not good enough. Also there are no limits on the number
-// of characters one can input, and no sanitization as to what those characteres are.
+// of characters one can input, and no sanitization as to what those characters are.
+// Also there only exists client-side validation. There is no server-side validation whatsoever.
 
 function inputCheck() {
 
