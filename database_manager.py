@@ -6,6 +6,9 @@ This module makes changes to the database
 """
 DATABASE_NAME = 'database.db'
 
+# CRITICAL SECURITY NOTIFICATION: Functions use string formatting to create Queries, instead of properly sanitizing
+# or parameterizing the user input. This leaves an opening for SQL-injections.
+
 
 def add_user(username, password, admin_status=0):
 
@@ -13,6 +16,8 @@ def add_user(username, password, admin_status=0):
     cursor = conn.cursor()
 
     try:
+
+        # SECURITY NOTIFICATION: Passwords are stored directly into the database without any hashing!
 
         sql = f"INSERT INTO users (username, password, admin) VALUES ('{username}', '{password}', '{admin_status}')"
         cursor.execute(sql)
