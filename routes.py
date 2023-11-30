@@ -48,7 +48,7 @@ def register():
 
         if admin:
             # create an admin user
-            admin_status = 1
+            admin_status = True
             user = User(username, password, admin_status)
             database_manager.add_user(
                 user.username, user.password, user.admin_status)
