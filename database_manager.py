@@ -34,36 +34,6 @@ def add_user(username, password, admin_status=0):
         conn.close()
         return False
 
-
-def get_user_by_username(username):
-
-    conn = sqlite3.connect(DATABASE_NAME)
-    cursor = conn.cursor()
-
-    try:
-
-        sql = f"SELECT * FROM users WHERE username = '{username}'"
-        result = cursor.execute(sql).fetchall()
-
-        if len(result) != 0:
-
-            for user in result:
-
-                admin_status = 'Admin' if user[3] == 1 else 'Not Admin'
-
-                print(f"User ID: {user[0]}")
-                print(f"Username: {user[1]}")
-                print(f"Admin Status: {admin_status}")
-
-        return True
-    except Exception as error:
-
-        print("Error occurred when trying to retrieve user", error)
-        conn.rollback()
-        conn.close()
-        return False
-
-
 def delete_user(username):
 
     conn = sqlite3.connect(DATABASE_NAME)
