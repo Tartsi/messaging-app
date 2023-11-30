@@ -2,7 +2,8 @@ from flask import render_template, request
 from models.user import User
 import sqlite3
 from app import app
-import database_manager
+import database_manager as dbm
+import database_fetcher as dbf
 
 # Make sure you have setup the database beforehand!
 DATABASE_NAME = 'database.db'
@@ -39,7 +40,8 @@ def register():
 
         username = request.form["username"]
 
-        # TODO: CHECK username availability
+        if dbf.get_user_by_username(username):
+            return render_template("register.html", username_already_exists=True)
 
         password = request.form["password"]
 
@@ -50,13 +52,13 @@ def register():
             # create an admin user
             admin_status = True
             user = User(username, password, admin_status)
-            database_manager.add_user(
+            dbm.add_user(
                 user.username, user.password, user.admin_status)
             return render_template("index.html", admin_user=True)
 
         # normal user
         user = User(username, password)
-        database_manager.add_user(user.username, user.password)
+        dbm.add_user(user.username, user.password)
 
         return render_template("index.html", normal_user=True)
 

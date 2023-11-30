@@ -19,8 +19,7 @@ def add_user(username, password, admin_status=0):
 
         # SECURITY NOTIFICATION: Passwords are stored directly into the database without any hashing!
 
-        sql = f"INSERT INTO users (username, password, admin) VALUES ('{
-            username}', '{password}', '{admin_status}')"
+        sql = f"INSERT INTO users (username, password, admin) VALUES ('{username}', '{password}', '{admin_status}')"
         cursor.execute(sql)
         print(f"Succesfully created user: {username}")
         conn.commit()
@@ -33,6 +32,7 @@ def add_user(username, password, admin_status=0):
         conn.rollback()
         conn.close()
         return False
+
 
 def delete_user(username):
 
