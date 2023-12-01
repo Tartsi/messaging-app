@@ -35,5 +35,6 @@
 - App secret key is way too short, common and generally insecure.
 - No CSRF protection used in index.html login-form.
 - Input checks for registration form are not secure enough and only exist client-side.
-- Functions such as adding user use string formatting to create queries, instead of properly sanitizing or parameterizing the user input. This leaves an opening for SQL-injections.
+- Functions such as adding user use string formatting to create queries, instead of properly sanitizing or parameterizing the user input. This leaves an opening for SQL-injections. Also added extra security-related information related to
+fetching data from the database, namely using (*), instead of naming specific columns.
 - Passwords are stored directly into the database with no hashing whatsoever.
