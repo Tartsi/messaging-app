@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, session
 from models.user import User
 import sqlite3
 from app import app
@@ -63,6 +63,26 @@ def register():
         return render_template("index.html", normal_user=True)
 
     return render_template("register.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "GET":
+        return render_template("login.html")
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        user = dbf.get_user_by_username(username)
+
+        if not user:
+            return render_template("index.html", user_not_found=True)
+
+        # TODO:
+        # Handle user session
 
 
 if __name__ == "__main__":

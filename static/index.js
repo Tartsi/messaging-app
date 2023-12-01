@@ -7,3 +7,7 @@ function showSuccessNormal() {
 function showSuccessAdmin() {
     alert("Admin account successfully registered!");
 }
+
+function showUserNotFound() {
+    alert('Invalid username or password!');
+}
