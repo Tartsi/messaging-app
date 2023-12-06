@@ -76,7 +76,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        user = dbf.get_user_by_username(username)
+        user = dbf.login(username, password)
 
         if not user:
             return render_template("index.html", user_not_found=True)
