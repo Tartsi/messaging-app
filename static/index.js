@@ -11,3 +11,7 @@ function showSuccessAdmin() {
 function showUserNotFound() {
     alert('Invalid username or password!');
 }
+
+function showNotLoggedIn() {
+    alert('Please log in first!');
+}

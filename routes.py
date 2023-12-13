@@ -1,4 +1,4 @@
-from flask import render_template, request, session
+from flask import render_template, request, session, redirect, flash
 from models.user import User
 import sqlite3
 from app import app
@@ -81,8 +81,31 @@ def login():
         if not user:
             return render_template("index.html", user_not_found=True)
 
-        # TODO:
-        # Handle user session
+        user_info = dbf.get_user_by_username(username)
+
+        session["username"] = username
+        session["user_id"] = user_info[0][0]
+        session["admin_status"] = user_info[0][3]
+
+        return redirect("/dashboard")
+
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    del session["username"]
+    return redirect("/")
+
+
+@app.route("/dashboard", methods=["GET"])
+def dashboard():
+
+    if request.method == "GET":
+        if "username" not in session:
+            return render_template("index.html", user_not_logged_in=True)
+
+    # TODO: HANDLE SHOW MESSAGES!
+
+    return render_template("dashboard.html", alert=True, user=session["username"])
 
 
 if __name__ == "__main__":

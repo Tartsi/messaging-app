@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/dashboard.css">
+    <script src="/static/dashboard.js"></script>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ user }}</h1>
+            <a href="/logout" class="logout-button">Logout</a>
+        </div>
+        <section class="message-section">
+            <h2>Write a New Message</h2>
+            <form action="/send-message" method="post">
+                <input type="text" name="recipient" placeholder="Recipient Username">
+                <textarea name="message" placeholder="Write here"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+        <section class="message-section">
+            <h2>Received Messages</h2>
+            <div class="messages">
+                <!--TODO-->
+            </div>
+        </section>
+
+        <section class="message-section">
+            <h2>Sent Messages</h2>
+            <div class="messages">
+                <!--TODO-->
+            </div>
+        </section>
+    </div>
+
+    {% if alert %}
+    <script>
+        showLoggedInUser();
+    </script>
+    {% endif %}
+</body>
+
+</html>

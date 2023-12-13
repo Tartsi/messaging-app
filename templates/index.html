@@ -49,6 +49,12 @@
         showUserNotFound();
     </script>
     {% endif %}
+
+    {% if user_not_logged_in %}
+    <script>
+        showNotLoggedIn();
+    </script>
+    {% endif %}
 </body>
 
 </html>

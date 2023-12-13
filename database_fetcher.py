@@ -20,8 +20,8 @@ def login(username, password):
         # Vulnerable against SQL-injections
         # No password hashing, since it has not been implemented anywhere
         # Open to brute-force attacks as there are no limits for logins anywhere
-        sql_statement = f"SELECT * FROM users WHERE username = '{
-            username}' AND password = '{password}'"
+        sql_statement = (f"SELECT * FROM users WHERE username = '{username}' "
+                         f"AND password = '{password}'")
         result = cursor.execute(sql_statement).fetchall()
 
         if bool(result):
