@@ -1,8 +1,9 @@
 'use strict';
 
 const adminPassword = "adminpassword1234";
-// SECURITY NOTIFICATION: The key should be more random.
-// In this form this is more of a "theoretical" and not a "realistic" security flaw.
+// SECURITY NOTIFICATION: The key should be more random and it should not be
+// stored here as it is visible to everyone! This leaves the application vulnerable to
+// unauthorized access attacks (admin-privileges).
 
 // SECURITY NOTIFICATION: This input check method is insufficient and thus a security issue.
 // These password checks are simply not good enough. Also there are no limits on the number

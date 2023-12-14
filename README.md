@@ -32,9 +32,10 @@
 ### Security Notifications:
 
 - Notification in the database table setup file. The password field of users should use proper password hashing, instead of plaintext passwords for storing passwords. This practice protects users passwords incase the database is compromised.
-- App secret key is way too short, common and generally insecure.
+- App secret key is too short, common and generally insecure. Also it is directly stored in a public, visible file for anyone to see.
 - No CSRF protection used in index.html login-form.
 - Input checks for registration form are not secure enough and only exist client-side.
+- Admin password is left visible in the JavaScript-file. It is also weak and thus open to brute force attacks.
 - Functions such as adding user use string formatting to create queries, instead of properly sanitizing or parameterizing the user input. This leaves an opening for SQL-injections. Also added extra security-related information related to
 fetching data from the database, namely using (*), instead of naming specific columns.
 - Passwords are stored directly into the database with no hashing whatsoever.
