@@ -60,5 +60,29 @@ def get_user_by_username(username):
         return None
 
 
+def get_messages_by_user_id(receiver_id):
+
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    try:
+
+        sql_statement = f"SELECT content FROM messages WHERE receiver_id = '{
+            receiver_id}'"
+        result = cursor.execute(sql_statement).fetchall()
+
+        if result:
+            conn.close()
+            return result
+
+        conn.close()
+        return None
+
+    except Exception as error:
+        print("Error occurred while getting messages from database", error)
+        conn.close()
+        return None
+
+
 with app.app_context():
     pass

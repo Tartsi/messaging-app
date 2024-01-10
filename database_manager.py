@@ -19,7 +19,8 @@ def add_user(username, password, admin_status=0):
 
         # SECURITY NOTIFICATION: Passwords are stored directly into the database without any hashing!
 
-        sql = f"INSERT INTO users (username, password, admin) VALUES ('{username}', '{password}', '{admin_status}')"
+        sql = f"INSERT INTO users (username, password, admin) VALUES ('{
+            username}', '{password}', '{admin_status}')"
         cursor.execute(sql)
         print(f"Succesfully created user: {username}")
         conn.commit()
@@ -50,6 +51,28 @@ def delete_user(username):
     except Exception as error:
 
         print(f"Error occurred when trying to delete user: {error}")
+        conn.rollback()
+        conn.close()
+        return False
+
+
+def send_message(sender_id, receiver_id, content):
+
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    try:
+
+        sql = f"INSERT INTO messages (sender_id, receiver_id, content) VALUES ('{
+            sender_id}', '{receiver_id}', '{content}')"
+        cursor.execute(sql)
+        conn.commit()
+        conn.close()
+        return True
+
+    except Exception as error:
+
+        print(f"Error occurred when trying to send a message: {error}")
         conn.rollback()
         conn.close()
         return False

@@ -103,9 +103,15 @@ def dashboard():
         if "username" not in session:
             return render_template("index.html", user_not_logged_in=True)
 
-    # TODO: HANDLE SHOW MESSAGES!
+    user_messages = []
+    messages = dbf.get_messages_by_user_id(session["user_id"])
 
-    return render_template("dashboard.html", alert=True, user=session["username"])
+    for message in messages:
+        user_messages.append(message[0])
+
+    # TODO: HANDLE sending messages, must check if receiver id exists!
+    # TODO: HANDLE showing messages on dashboard.html
+    return render_template("dashboard.html", alert=True, messages=user_messages, user=session["username"])
 
 
 if __name__ == "__main__":
