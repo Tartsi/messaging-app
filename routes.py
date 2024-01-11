@@ -106,12 +106,15 @@ def dashboard():
     user_messages = []
     messages = dbf.get_messages_by_user_id(session["user_id"])
 
-    for message in messages:
-        user_messages.append(message[0])
+    if messages is None:
+        return render_template("dashboard.html", alert=True, user_messages=[], user=session["username"])
 
-    # TODO: HANDLE sending messages, must check if receiver id exists!
-    # TODO: HANDLE showing messages on dashboard.html
-    return render_template("dashboard.html", alert=True, messages=user_messages, user=session["username"])
+    for message in messages:
+        user_messages.append({'sender': message[0], 'content': message[1]})
+
+    return render_template("dashboard.html", alert=True, user_messages=user_messages, user=session["username"])
+
+# TODO: HANDLE sending messages, must check if receiver id exists!
 
 
 if __name__ == "__main__":

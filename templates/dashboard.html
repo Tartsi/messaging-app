@@ -28,7 +28,16 @@
         <section class="message-section">
             <h2>Received Messages</h2>
             <div class="messages">
-                <!--TODO-->
+                {% if user_messages|length > 0 %}
+                    <ul>
+                        {% for message in user_messages %}
+                            <li>{{ message.content }} <br><br>from: {{ message.sender }}</li>
+                            <br>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No messages received</p>
+                {% endif %}
             </div>
         </section>
 
