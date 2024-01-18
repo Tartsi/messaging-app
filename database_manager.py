@@ -19,8 +19,8 @@ def add_user(username, password, admin_status=0):
 
         # SECURITY NOTIFICATION: Passwords are stored directly into the database without any hashing!
 
-        sql = f"INSERT INTO users (username, password, admin) VALUES ('{
-            username}', '{password}', '{admin_status}')"
+        sql = f"INSERT INTO users (username, password, admin) " \
+            f"VALUES ('{username}', '{password}', '{admin_status}')"
         cursor.execute(sql)
         print(f"Succesfully created user: {username}")
         conn.commit()
@@ -63,8 +63,8 @@ def send_message(sender_id, receiver_id, content):
 
     try:
 
-        sql = f"INSERT INTO messages (sender_id, receiver_id, content) VALUES ('{
-            sender_id}', '{receiver_id}', '{content}')"
+        sql = f"INSERT INTO messages (sender_id, receiver_id, content) " \
+            f"VALUES ('{sender_id}', '{receiver_id}', '{content}')"
         cursor.execute(sql)
         conn.commit()
         conn.close()
