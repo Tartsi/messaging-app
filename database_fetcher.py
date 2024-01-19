@@ -60,7 +60,36 @@ def get_user_by_username(username):
         return None
 
 
-def get_messages_by_user_id(receiver_id):
+def get_messages_by_sender_id(sender_id):
+
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    try:
+
+        # String formatting used, no sanitization. Vulnerablo to SQL-injection
+        sql_statement = (
+            "SELECT users.username, messages.content "
+            "FROM messages "
+            "INNER JOIN users ON messages.receiver_id = users.id "
+            f"WHERE messages.sender_id = '{sender_id}'"
+        )
+        result = cursor.execute(sql_statement).fetchall()
+
+        if result:
+            conn.close()
+            return result
+
+        conn.close()
+        return None
+
+    except Exception as error:
+        print("Error occurred while getting messages from database", error)
+        conn.close()
+        return None
+
+
+def get_messages_by_receiver_id(receiver_id):
 
     conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()

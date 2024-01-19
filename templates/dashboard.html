@@ -18,7 +18,7 @@
         </div>
         <section class="message-section">
             <h2>Write a New Message</h2>
-            <form action="/send-message" method="post">
+            <form action="/send_message" method="post">
                 <input type="text" name="recipient" placeholder="Recipient Username">
                 <textarea name="message" placeholder="Write here"></textarea>
                 <button type="submit">Send Message</button>
@@ -44,7 +44,16 @@
         <section class="message-section">
             <h2>Sent Messages</h2>
             <div class="messages">
-                <!--TODO-->
+                {% if sent_messages|length > 0 %}
+                <ul>
+                    {% for message in sent_messages %}
+                        <li>{{ message.content }} <br><br>to: {{ message.receiver }}</li>
+                        <br>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No messages sent</p>
+            {% endif %}
             </div>
         </section>
     </div>
