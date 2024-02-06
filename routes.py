@@ -86,6 +86,23 @@ def login():
         session["username"] = username
         session["user_id"] = user_info[0][0]
         session["admin_status"] = user_info[0][3]
+        session["user_received"] = []
+        session["user_sent"] = []
+
+        sent_messages = dbf.get_messages_by_sender_id(session["user_id"])
+        received_messages = dbf.get_messages_by_receiver_id(session["user_id"])
+
+        if received_messages:
+            for message in received_messages:
+                session["user_received"].append(
+                    {'sender': message[0], 'content': message[1]})
+
+        if sent_messages:
+            for message in sent_messages:
+                session["user_sent"].append(
+                    {'receiver': message[0], 'content': message[1]})
+
+        session.modified = True
 
         return redirect("/dashboard")
 
@@ -103,22 +120,7 @@ def dashboard():
         if "username" not in session:
             return render_template("index.html", user_not_logged_in=True)
 
-    user_received_messages = []
-    user_sent_messages = []
-    sent_messages = dbf.get_messages_by_sender_id(session["user_id"])
-    received_messages = dbf.get_messages_by_receiver_id(session["user_id"])
-
-    if received_messages:
-        for message in received_messages:
-            user_received_messages.append(
-                {'sender': message[0], 'content': message[1]})
-
-    if sent_messages:
-        for message in sent_messages:
-            user_sent_messages.append(
-                {'receiver': message[0], 'content': message[1]})
-
-    return render_template("dashboard.html", alert=True, sent_messages=user_sent_messages, user_messages=user_received_messages, user=session["username"])
+    return render_template("dashboard.html", alert=True, sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"])
 
 
 @app.route("/send_message", methods=["POST"])
@@ -126,16 +128,21 @@ def send_message():
 
     if request.method == "POST":
 
-        receiver_username = request.form("recipient")
+        receiver_username = request.form["recipient"]
 
         receiver_data = dbf.get_user_by_username(receiver_username)
 
-        if receiver_data:
-            content = request.form("content")
+        if receiver_data is not None:
+            content = request.form["message"]
 
             if dbm.send_message(session["user_id"], receiver_data[0][0], content):
-                # TODO: finish functionality
-                pass
+                session["user_sent"].append(
+                    {'receiver': receiver_data[0][1], 'content': content})
+                session.modified = True
+                return render_template("dashboard.html", sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"], message_sent=True)
+
+        else:
+            return render_template("dashboard.html", sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"], user_not_found=True)
 
 
 if __name__ == "__main__":

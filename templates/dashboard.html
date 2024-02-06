@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/dashboard.css">
-    <script src="/static/dashboard.js"></script>
     <title>Dashboard</title>
 </head>
 
@@ -19,24 +18,24 @@
         <section class="message-section">
             <h2>Write a New Message</h2>
             <form action="/send_message" method="post">
-                <input type="text" name="recipient" placeholder="Recipient Username">
-                <textarea name="message" placeholder="Write here"></textarea>
+                <input type="text" name="recipient" placeholder="Recipient Username", required>
+                <textarea name="message" placeholder="Write here", required></textarea>
                 <button type="submit">Send Message</button>
             </form>
         </section>
-
+        
         <section class="message-section">
             <h2>Received Messages</h2>
             <div class="messages">
                 {% if user_messages|length > 0 %}
-                    <ul>
-                        {% for message in user_messages %}
-                            <li>{{ message.content }} <br><br>from: {{ message.sender }}</li>
-                            <br>
-                        {% endfor %}
-                    </ul>
+                <ul>
+                    {% for message in user_messages %}
+                    <li>{{ message.content }} <br><br>from: {{ message.sender }}</li>
+                    <br>
+                    {% endfor %}
+                </ul>
                 {% else %}
-                    <p>No messages received</p>
+                <p>No messages received</p>
                 {% endif %}
             </div>
         </section>
@@ -47,20 +46,34 @@
                 {% if sent_messages|length > 0 %}
                 <ul>
                     {% for message in sent_messages %}
-                        <li>{{ message.content }} <br><br>to: {{ message.receiver }}</li>
-                        <br>
+                    <li>{{ message.content }} <br><br>to: {{ message.receiver }}</li>
+                    <br>
                     {% endfor %}
                 </ul>
-            {% else %}
+                {% else %}
                 <p>No messages sent</p>
-            {% endif %}
+                {% endif %}
             </div>
         </section>
     </div>
-
+    
+    <script src="/static/dashboard.js"></script>
+    
     {% if alert %}
     <script>
         showLoggedInUser();
+    </script>
+    {% endif %}
+
+    {% if message_sent %}
+    <script>
+        messageSent();
+    </script>
+    {% endif %}
+
+    {% if user_not_found %}
+    <script>
+        userNotFound();
     </script>
     {% endif %}
 </body>
