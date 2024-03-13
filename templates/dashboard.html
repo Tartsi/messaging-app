@@ -12,15 +12,18 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Welcome, {{ user }}</h1>
+            <h1 id="h1user">Welcome, {{ user }}</h1>
             <a href="/logout" class="logout-button">Logout</a>
         </div>
         <section class="message-section">
             <h2>Write a New Message</h2>
-            <form action="/send_message" method="post">
-                <input type="text" name="recipient" placeholder="Recipient Username", required>
-                <textarea name="message" placeholder="Write here", required></textarea>
-                <button type="submit">Send Message</button>
+            <form method="post", action="/send_message">
+
+                <!-- SECURITY NOTIFICATION: NO CSRF-TOKEN PRESENT! -->
+
+                <input type="text" name="recipient" id="receivername" placeholder="Recipient Username", required>
+                <textarea name="message" id="messagecontent" placeholder="Write here", required></textarea>
+                <button type="submit" onclick="return checkMessage()">Send</button>
             </form>
         </section>
         
