@@ -20,10 +20,10 @@ function inputCheck() {
 
     if (username.length < 4) {
         alert('Username must be at least 4 characters long.');
-        username.value = "";
-        password.value = "";
-        confirmPassword.value = "";
-        adminPass.value = "";
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('confirm-password').value = "";
+        document.getElementById('admin-password').value = "";
         return false;
     }
 
@@ -31,28 +31,28 @@ function inputCheck() {
 
     if (password.length < 5) {
         alert('Password must be at least 5 characters long.');
-        username.value = "";
-        password.value = "";
-        confirmPassword.value = "";
-        adminPass.value = "";
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('confirm-password').value = "";
+        document.getElementById('admin-password').value = "";
         return false;
     }
 
     if (!hasNumbers.test(password)) {
         alert("Password must contain at least one number.");
-        username.value = "";
-        password.value = "";
-        confirmPassword.value = "";
-        adminPass.value = "";
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('confirm-password').value = "";
+        document.getElementById('admin-password').value = "";
         return false;
     }
 
     if (confirmPassword !== password) {
         alert("Password and confirm password do not match.");
-        username.value = "";
-        password.value = "";
-        confirmPassword.value = "";
-        adminPass.value = "";
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('confirm-password').value = "";
+        document.getElementById('admin-password').value = "";
         return false;
     }
 
@@ -63,10 +63,10 @@ function inputCheck() {
         if (adminPassword !== adminPass) {
 
             alert("Admin password is incorrect!");
-            username.value = "";
-            password.value = "";
-            confirmPassword.value = "";
-            adminPass.value = "";
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+            document.getElementById('confirm-password').value = "";
+            document.getElementById('admin-password').value = "";
             return false;
 
         }
