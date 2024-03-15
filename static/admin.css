@@ -54,3 +54,18 @@ h1 {
 .btn-suspend:hover {
     background-color: #e69100;
 }
+
+.logout-button {
+    padding: 8px 15px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
