@@ -27,7 +27,11 @@
 
 5. Delete Messages:
 
-- Users can delete messages from their inbox/sent messages list.
+- Users can delete messages from their inbox.
+
+6. Admin Page:
+
+- Admin-status accounts can delete or ban registered users
 
 ### Security Notifications:
 
@@ -37,6 +41,7 @@
 - Input checks for registration form are not secure enough and only exist client-side.
 - Input check for message cont when sending messages is not secure enough and only exist client-side.
 - Admin password is left visible in the JavaScript-file. It is also weak and thus open to brute force attacks.
+- Admin page is accessible directly from the URL.
 - Functions such as adding user use string formatting to create queries, instead of properly sanitizing or parameterizing the user input. This leaves an opening for SQL-injections. Also added extra security-related information related to
 fetching data from the database, namely using (*), instead of naming specific columns.
 - Passwords are stored directly into the database with no hashing whatsoever.
