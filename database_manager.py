@@ -7,7 +7,8 @@ This module makes changes to the database
 DATABASE_NAME = 'database.db'
 
 # CRITICAL SECURITY NOTIFICATION: Functions use string formatting to create Queries, instead of properly sanitizing
-# or parameterizing the user input. This leaves an opening for SQL-injections.
+# or parameterizing the user input. This leaves an opening for SQL-injections. These functions directly manage the database
+# thus potential SQL-injections here could cause damage to the database in terms of database integrity.
 
 
 def add_user(username, password, admin_status=0):
@@ -35,14 +36,14 @@ def add_user(username, password, admin_status=0):
         return False
 
 
-def delete_user(username):
+def delete_user(id):
 
     conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()
 
     try:
 
-        sql = f"DELETE FROM users WHERE username = '{username}'"
+        sql = f"DELETE FROM users WHERE id = '{id}'"
         cursor.execute(sql)
         conn.commit()
         conn.close()

@@ -67,7 +67,7 @@ def get_messages_by_sender_id(sender_id):
 
     try:
 
-        # String formatting used, no sanitization. Vulnerablo to SQL-injection
+        # String formatting used, no sanitization. Vulnerable to SQL-injection
         sql_statement = (
             "SELECT users.username, messages.content "
             "FROM messages "
@@ -96,7 +96,7 @@ def get_messages_by_receiver_id(receiver_id):
 
     try:
 
-        # String formatting used, no sanitization. Vulnerablo to SQL-injection
+        # String formatting used, no sanitization. Vulnerable to SQL-injection
         sql_statement = (
             "SELECT users.username, messages.content, messages.id "
             "FROM messages "
