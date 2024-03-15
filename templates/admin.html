@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin.css">
+    <title>Admin Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <a href="/logout" class="logout-button">Logout</a>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Admin status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td id="admin_status_check">{{ user.admin_status }}</td>
+                    <td>
+                        <button class="btn-delete" onclick="confirmAction('/admin/delete/{{ user.id }}')">Delete</button>
+                        <button class="btn-suspend" onclick="confirmAction('/admin/suspend/{{ user.id }}')">Ban</button>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/admin.js"></script>
+
+    {% if alert_admin_login %}
+    <script>
+        showLoginMessage();
+    </script>
+    {% endif %}
+
+
+</body>
+</html>

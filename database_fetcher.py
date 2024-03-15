@@ -60,6 +60,28 @@ def get_user_by_username(username):
         return None
 
 
+def get_all_users():
+
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    try:
+
+        sql_statement = f"SELECT * FROM users"
+        users = cursor.execute(sql_statement).fetchall()
+
+        if bool(users):
+            conn.close()
+            return users
+
+        conn.close()
+        return None
+    except Exception as error:
+        print("Error occurred while retrieving users:", error)
+        conn.close()
+        return None
+
+
 def get_messages_by_sender_id(sender_id):
 
     conn = sqlite3.connect(DATABASE_NAME)

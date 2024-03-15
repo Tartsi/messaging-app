@@ -50,7 +50,7 @@ def register():
 
         if admin:
             # create an admin user
-            admin_status = True
+            admin_status = 1
             user = User(username, password, admin_status)
             dbm.add_user(
                 user.username, user.password, user.admin_status)
@@ -69,7 +69,7 @@ def register():
 def login():
 
     if request.method == "GET":
-        return render_template("login.html")
+        return redirect("/")
 
     if request.method == "POST":
 
@@ -88,6 +88,10 @@ def login():
         session["admin_status"] = user_info[0][3]
         session["user_received"] = []
         session["user_sent"] = []
+        # NO CSRF-token initialization for the session
+
+        if session["admin_status"] == 1:
+            return redirect("/admin")
 
         sent_messages = dbf.get_messages_by_sender_id(session["user_id"])
         received_messages = dbf.get_messages_by_receiver_id(session["user_id"])
@@ -111,6 +115,29 @@ def login():
 def logout():
     del session["username"]
     return redirect("/")
+
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
+
+    if request.method == "GET":
+
+        # CRITICAL SECURITY NOTIFICATION: Broken Access Control
+        # NO ADMINISTRATION CHECK: Admin-page accessible directly via the URL!
+
+        all_users = []
+        result = dbf.get_all_users()
+
+        if result:
+
+            for user in result:
+
+                # Only show normal users on admin page
+                if user[3] == 0:
+                    all_users.append(
+                        {'id': user[0], 'username': user[1], 'admin_status': user[3]})
+
+        return render_template("admin.html", alert_admin_login=True, users=all_users)
 
 
 @app.route("/dashboard", methods=["GET"])
