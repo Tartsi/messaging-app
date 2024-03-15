@@ -98,7 +98,7 @@ def get_messages_by_receiver_id(receiver_id):
 
         # String formatting used, no sanitization. Vulnerablo to SQL-injection
         sql_statement = (
-            "SELECT users.username, messages.content "
+            "SELECT users.username, messages.content, messages.id "
             "FROM messages "
             "INNER JOIN users ON messages.sender_id = users.id "
             f"WHERE messages.receiver_id = '{receiver_id}'"

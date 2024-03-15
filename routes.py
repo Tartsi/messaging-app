@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, flash
+from flask import render_template, request, session, redirect
 from models.user import User
 import sqlite3
 from app import app
@@ -95,7 +95,7 @@ def login():
         if received_messages:
             for message in received_messages:
                 session["user_received"].append(
-                    {'sender': message[0], 'content': message[1]})
+                    {'sender': message[0], 'content': message[1], 'id': message[2]})
 
         if sent_messages:
             for message in sent_messages:
@@ -143,6 +143,29 @@ def send_message():
 
         else:
             return render_template("dashboard.html", sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"], user_not_found=True)
+
+
+@app.route("/delete_message", methods=["POST"])
+def delete_message():
+
+    # CAUTION! Deleting a received message deletes message from both user and sender
+    # This is due to bad design in the tables.sql (only 1 messages-table for sent and received messages)
+    # Not necessarily a security issue per say, but definitely worth mentioning as a flaw
+
+    if request.method == "POST":
+
+        message_id = int(request.form["message_id"])
+
+        if dbm.delete_message(message_id):
+
+            for i, msg in enumerate(session["user_received"]):
+
+                if msg['id'] == message_id:
+                    del session["user_received"][i]
+                    session.modified = True
+                    break
+
+        return render_template("dashboard.html", sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"])
 
 
 if __name__ == "__main__":

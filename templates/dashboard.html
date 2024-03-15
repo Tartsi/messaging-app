@@ -35,6 +35,12 @@
                     {% for message in user_messages %}
                     <li>{{ message.content }} <br><br>from: {{ message.sender }}</li>
                     <br>
+                    <form method="post" action="/delete_message">
+                        <input type="hidden" name="message_id" value="{{ message.id }}">
+                        <input type="hidden" name="message_type" value="received">
+                        <input type="submit" value="Delete">
+                    </form>
+                    <br>
                     {% endfor %}
                 </ul>
                 {% else %}

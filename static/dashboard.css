@@ -45,6 +45,19 @@ form textarea {
     border-radius: 4px;
 }
 
+form input[type="submit"] {
+    margin-left: -710px;
+    border: none;
+    border-radius: 1px;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #d24a18;
+}
+
 form button {
     padding: 10px 20px;
     margin-top: 10px;

@@ -56,6 +56,27 @@ def delete_user(username):
         return False
 
 
+def delete_message(id):
+
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    try:
+
+        sql = f"DELETE FROM messages WHERE id = '{id}'"
+        cursor.execute(sql)
+        conn.commit()
+        conn.close()
+        return True
+
+    except Exception as error:
+
+        print(f"Error occurred when trying to delete message: {error}")
+        conn.rollback()
+        conn.close()
+        return False
+
+
 def send_message(sender_id, receiver_id, content):
 
     conn = sqlite3.connect(DATABASE_NAME)
