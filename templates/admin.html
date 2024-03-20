@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <a href="/logout" class="logout-button">Logout</a>
-        <h1>Admin Dashboard</h1>
+        <h1>Admin Console</h1>
         <table class="user-table">
             <thead>
                 <tr>
@@ -27,7 +27,6 @@
                     <td id="admin_status_check">{{ user.admin_status }}</td>
                     <td>
                         <button class="btn-delete" onclick="confirmAction('/admin/delete/{{ user.id }}')">Delete</button>
-                        <button class="btn-suspend" onclick="confirmAction('/admin/suspend/{{ user.id }}')">Ban</button>                        
                     </td>
                 </tr>
                 {% endfor %}

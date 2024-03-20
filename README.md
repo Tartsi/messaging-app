@@ -31,7 +31,7 @@
 
 6. Admin Page:
 
-- Admin-status accounts can delete or ban registered users
+- Admin-status accounts can delete registered users
 
 ### Security Notifications:
 

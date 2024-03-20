@@ -113,8 +113,18 @@ def login():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
+    # Clears only username from the session, not the entire session
+    # Might not necessarily be a security flaw, but worth mentioning
     del session["username"]
     return redirect("/")
+
+
+@app.route("/admin/delete/<int:id>", methods=["GET"])
+def delete_user(id):
+
+    if dbm.delete_user(id):
+
+        return redirect("/admin")
 
 
 @app.route("/admin", methods=["GET", "POST"])
@@ -137,14 +147,14 @@ def admin():
                     all_users.append(
                         {'id': user[0], 'username': user[1], 'admin_status': user[3]})
 
-        return render_template("admin.html", alert_admin_login=True, users=all_users)
+        return render_template("admin.html", users=all_users)
 
 
 @app.route("/dashboard", methods=["GET"])
 def dashboard():
 
     if request.method == "GET":
-        if "username" not in session:
+        if "username" not in session or not dbf.get_user_by_username(session["username"]):
             return render_template("index.html", user_not_logged_in=True)
 
     return render_template("dashboard.html", alert=True, sent_messages=session["user_sent"], user_messages=session["user_received"], user=session["username"])
