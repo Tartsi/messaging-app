@@ -98,8 +98,3 @@ def send_message(sender_id, receiver_id, content):
         conn.rollback()
         conn.close()
         return False
-
-
-# For testing purposes only.
-with app.app_context():
-    pass

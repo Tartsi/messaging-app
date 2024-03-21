@@ -138,7 +138,3 @@ def get_messages_by_receiver_id(receiver_id):
         print("Error occurred while getting messages from database", error)
         conn.close()
         return None
-
-
-with app.app_context():
-    pass
