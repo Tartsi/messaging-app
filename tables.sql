@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL, -- SECURITY NOTIFICATION: Plaintext password, no hashing whatsoever.
+    -- SOLUTION: Use password hashing solutions when creating users within the application!
     admin INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS messages (

@@ -20,11 +20,20 @@ def login(username, password):
         # Vulnerable against SQL-injections
         # No password hashing, since it has not been implemented anywhere
         # Open to brute-force attacks as there are no limits for logins anywhere
+
         sql_statement = (f"SELECT * FROM users WHERE username = '{username}' "
                          f"AND password = '{password}'")
         result = cursor.execute(sql_statement).fetchall()
 
+        # Password hashing solution:
+
+        # This is where we would run the received password against the one stored
+        # in the database:
+
         if bool(result):
+            # stored_hash = result[0][1]
+            # conn.close()
+            # return bcrypt.checkpw(password.encode('utf-8'), stored_hash)
             conn.close()
             return True
 

@@ -44,6 +44,7 @@ def register():
             return render_template("register.html", username_already_exists=True)
 
         password = request.form["password"]
+        # You can encrypt the password here as well, now the solution is in database_manage.py-file
 
         # Check if admin checkbox
         admin = request.form.get("admin-checkbox") == "on"

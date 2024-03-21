@@ -19,6 +19,11 @@ def add_user(username, password, admin_status=0):
     try:
 
         # SECURITY NOTIFICATION: Passwords are stored directly into the database without any hashing!
+        # SOLUTION: Use password hashing algorithms such as bcrypt
+
+        # import bcrypt
+        # hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        # then use this hashed_password when inserting password into the database!
 
         sql = f"INSERT INTO users (username, password, admin) " \
             f"VALUES ('{username}', '{password}', '{admin_status}')"
