@@ -20,7 +20,9 @@
             <form method="post", action="/send_message">
 
                 <!-- SECURITY NOTIFICATION: NO CSRF-TOKEN PRESENT! -->
-
+                <!-- SOLUTION: Use CSRF-TOKEN when sending forms-->
+                <!-- Example:
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
                 <input type="text" name="recipient" id="receivername" placeholder="Recipient Username", required>
                 <textarea name="message" id="messagecontent" placeholder="Write here", required></textarea>
                 <button type="submit" onclick="return checkMessage()">Send</button>

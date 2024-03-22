@@ -89,7 +89,11 @@ def login():
         session["admin_status"] = user_info[0][3]
         session["user_received"] = []
         session["user_sent"] = []
-        # NO CSRF-token initialization for the session
+        # SECURITY ISSUE: NO CSRF-token initialization for the session
+        # SOLUTION: Initialize the session with a secure csrf_token
+        # Example:
+        # import os
+        # session["csrf_token"] = os.urandom(16).hex()
 
         if session["admin_status"] == 1:
             return redirect("/admin")

@@ -17,7 +17,9 @@
         <form id="registration-form" method="post" action="/register">
 
             <!-- SECURITY NOTIFICATION: NO CSRF-TOKEN PRESENT! -->
-
+            <!-- SOLUTION: Use CSRF-TOKEN when sending forms-->
+            <!-- Example:
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
