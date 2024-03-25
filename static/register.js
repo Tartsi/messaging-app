@@ -5,6 +5,10 @@ const adminPassword = "adminpassword1234";
 // stored here as it is visible to everyone! This leaves the application vulnerable to
 // unauthorized access attacks (admin-privileges).
 
+// SOLUTION: The key should be more secure (Capital letters, digits, numbers and specialized characters, also 12 characters long atleast!)
+// It should be hashed and salted properly using algorithms specializing in this such as bcrypt - (Just like any other password in this application should be)
+// It should not be stored in a visible location. It should be securely stored in the database.
+
 // SECURITY NOTIFICATION: This input check method is insufficient and thus a security issue.
 // Password checks are not extensive enough, they leave openings for weak passwords.
 // No limits on the number of characters one can input, and no sanitization as to what the characters are.
