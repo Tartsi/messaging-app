@@ -32,5 +32,21 @@ function checkMessage() {
     // There is no message content sanitization happening, thus the form is subject to potential
     // XSS vulnerabilities as it can be used to send malicious content.
 
+    // SOLUTION: Use more indepth input checks in the JavaScript-file
+
+    // Example:
+
+    // maliciousChars = ["<", ">", "</script"... etc.];
+
+    // for (let i = 0; i < maliciousChars.length; i++) {
+    //     if (messageContent.includes(maliciousChars[i])) {
+    //         alert("Malicious content detected!");
+    //         return false;
+    //     }
+    // }
+
+    // Also add a security check on the backend to routes.py file!
+    // This example is on line #171 and onward!
+
     return true;
 }

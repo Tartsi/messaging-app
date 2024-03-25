@@ -39,11 +39,15 @@ def register():
     if request.method == "POST":
 
         username = request.form["username"]
+        # Username checks should be here; For example check that it is not offensive
+        # and does not include malicious content
 
         if dbf.get_user_by_username(username):
             return render_template("register.html", username_already_exists=True)
 
         password = request.form["password"]
+        # Password checks should be here; make sure that it is extensive enough and includes
+        # special characters, capital letters etc...
         # You can encrypt the password here as well, now the solution is in database_manage.py-file
 
         # Check if admin checkbox
@@ -167,6 +171,14 @@ def dashboard():
 
 @app.route("/send_message", methods=["POST"])
 def send_message():
+
+    # Backend security check example:
+    # if not session.get("user_id")... make sure user is logged in
+    #
+    # content = request.form["message"]
+    # safe_content... sanitize_content_method(content)
+    # Have a separate function for example to sanitize the user's message content
+    # Before passing it on!
 
     if request.method == "POST":
 

@@ -6,9 +6,9 @@ const adminPassword = "adminpassword1234";
 // unauthorized access attacks (admin-privileges).
 
 // SECURITY NOTIFICATION: This input check method is insufficient and thus a security issue.
-// These password checks are simply not good enough. Also there are no limits on the number
-// of characters one can input, and no sanitization as to what those characters are.
-// Also there only exists client-side validation. There is no server-side validation whatsoever.
+// Password checks are not extensive enough, they leave openings for weak passwords.
+// No limits on the number of characters one can input, and no sanitization as to what the characters are.
+// Only client-side validation exists.
 
 function inputCheck() {
 
