@@ -144,6 +144,13 @@ def admin():
         # CRITICAL SECURITY NOTIFICATION: Broken Access Control
         # NO ADMINISTRATION CHECK: Admin-page accessible directly via the URL!
 
+        # SOLUTION: Ensure that proper authentication and authorization mechanism utilized
+        # when accessing the admin-page.
+        # Example:
+
+        # if session.get("admin_status") != 1:
+        #       return redirect("/login")
+
         all_users = []
         result = dbf.get_all_users()
 
