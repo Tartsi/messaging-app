@@ -7,8 +7,13 @@ This module retrieves data from the database
 
 DATABASE_NAME = 'database.db'
 
-# CRITICAL SECURITY NOTIFICATION: Functions use string formatting to create Queries, instead of properly sanitizing
-# or parameterizing the user input. This leaves an opening for SQL-injections.
+# SECURITY NOTIFICATION: Database fetching functions utilize * when retrieving data
+# This opens the database tables for excessive data exposure risk
+#
+# SECURITY NOTIFICATION: Database fetching functions use string formatting to create queries
+
+# SOLUTION: Only retrieve data from necessary columns in the database tables
+# SOLUTION: Properly sanitize user inputs
 
 
 def login(username, password):
@@ -17,9 +22,20 @@ def login(username, password):
     cursor = conn.cursor()
 
     try:
-        # Vulnerable against SQL-injections
-        # No password hashing, since it has not been implemented anywhere
-        # Open to brute-force attacks as there are no limits for logins anywhere
+        # Usage of * might open the database for excessive data exposure problems.
+        # Unsafe user input handling
+
+        # SQL-INJECTION SOLUTION: Properly parameterize user inputs when creating SQL-queries
+        # DATA EXPOSURE SOLUTION: Only retrieve data from necessary columns
+        #
+        # Example for both:
+
+        # sql_statement = """SELECT id, username, admin_status
+        #                  FROM users
+        #                  WHERE username = ?"""
+
+        # search_parameters = (username)
+        # result = cursor.execute(sql_statement, search_parameters)
 
         sql_statement = (f"SELECT * FROM users WHERE username = '{username}' "
                          f"AND password = '{password}'")
@@ -33,7 +49,7 @@ def login(username, password):
         if bool(result):
             # stored_hash = result[0][1]
             # conn.close()
-            # return bcrypt.checkpw(password.encode('utf-8'), stored_hash)
+            # return bcrypt.checkpw(password.encode('utf-8'), stored_hash) // Either True or False
             conn.close()
             return True
 
@@ -52,8 +68,19 @@ def get_user_by_username(username):
 
     try:
 
-        # This is especially dangerous here, usage of * and not properly sanitizing
-        # the user input might open the database for some serious SQL-injection problems.
+        # Usage of * might open the database for excessive data exposure problems.
+        # Solution: Only retrieve data from necessary columns
+
+        # Example:
+
+        # sql_statement =
+        # """SELECT id, username, admin_status
+        # FROM users
+        # WHERE username = ?"""
+
+        # search_parameters = (username)
+        # result = cursor.execute(sql_statement, search_parameters)
+
         sql_statement = f"SELECT * FROM users WHERE username = '{username}'"
         user = cursor.execute(sql_statement).fetchall()
 
@@ -75,6 +102,12 @@ def get_all_users():
     cursor = conn.cursor()
 
     try:
+        # Usage of * might open the database for excessive data exposure problems.
+        # Solution: Only retrieve data from necessary columns.
+
+        # Example:
+
+        # "SELECT username FROM users"
 
         sql_statement = f"SELECT * FROM users"
         users = cursor.execute(sql_statement).fetchall()
@@ -98,7 +131,6 @@ def get_messages_by_sender_id(sender_id):
 
     try:
 
-        # String formatting used, no sanitization. Vulnerable to SQL-injection
         sql_statement = (
             "SELECT users.username, messages.content "
             "FROM messages "
@@ -127,7 +159,6 @@ def get_messages_by_receiver_id(receiver_id):
 
     try:
 
-        # String formatting used, no sanitization. Vulnerable to SQL-injection
         sql_statement = (
             "SELECT users.username, messages.content, messages.id "
             "FROM messages "
