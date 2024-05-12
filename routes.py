@@ -8,6 +8,10 @@ import database_fetcher as dbf
 # Make sure you have setup the database beforehand!
 DATABASE_NAME = 'database.db'
 
+# SECURITY ISSUE: NO CSRF-token checks implented for the application!
+# SOLUTION: Implement CSRF-token checks for the application
+# Example: See send_messages-method for an example on CSRF-token check
+
 
 @app.route("/testdatabase")
 def test_database():
@@ -136,7 +140,7 @@ def delete_user(id):
         return redirect("/admin")
 
 
-@app.route("/admin", methods=["GET", "POST"])
+@app.route("/admin", methods=["GET"])
 def admin():
 
     if request.method == "GET":
@@ -186,6 +190,17 @@ def send_message():
     # safe_content... sanitize_content_method(content)
     # Have a separate function for example to sanitize the user's message content
     # Before passing it on!
+
+    # CSRF-token check example:
+
+    # if request.form["csrf_token"] != session["csrf_token"]:
+    #       return redirect("/logout")
+    # for example, or you can pass a message to the user informing that the request was not valid because the CSRF-token was not correct
+
+    # or you can return a 403 error code:
+
+    #   if not csrf_token or not request_token or csrf_token != request_token:
+    #       return "Invalid CSRF token", 403
 
     if request.method == "POST":
 
