@@ -8,11 +8,11 @@
 
 - Solution: Use a strong, random generated value as your key for your application. Also store it in an environment-variable that is not tracked by any systems, so that it cannot be accessed by any unwanted personnel.
 
-- ~~Issue Cross-site Request Forgery: No CSRF protection used in forms. There is also no CSRF-token initialization for the session during login.~~
+- Issue Cross-site Request Forgery: No CSRF protection used in forms. There is also no CSRF-token initialization for the session during login.
 
-- ~~Solution: Use the frameworks provided CSRF-protection across all forms. Authenticate the users session during login with a proper CSRF-token.~~
+- Solution: Use the frameworks provided CSRF-protection across all forms. Authenticate the users session during login with a proper CSRF-token. Authenticate the users session during requests, as demonstrated in the send_messages-function.
 
-- Flaw disapproved during evaluation
+- ~~Flaw disapproved during evaluation~~ - Fixed as of 13.05.2024
 
 - ~~Issue A03:2021-Injection: Input checks for registration form are not secure enough and only exists client-side; Input check for message content when sending messages is not secure enough and only exists client-side.~~
 
